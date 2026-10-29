@@ -1,15 +1,18 @@
 import Link from "next/link";
+import Catalogo from "./Catalogo";
+import { categorias, productos } from "@/lib/datos-ejemplo";
 
 // Pantalla de la tablet de caja ("/caja").
-// En la etapa 2 aquí aparecerá el catálogo de productos.
+// Esta página corre en el servidor: toma los datos y se los pasa al catálogo.
+// En la etapa 6 los datos vendrán de Supabase en vez de datos-ejemplo.
 export default function Caja() {
   return (
-    <main className="flex flex-1 flex-col gap-4 p-6">
+    <main className="flex flex-1 flex-col gap-6 p-6">
       <Link href="/" className="text-lg underline">
         ← Inicio
       </Link>
       <h1 className="text-3xl font-bold">Caja</h1>
-      <p className="text-lg">Aquí irá el catálogo de productos.</p>
+      <Catalogo categorias={categorias} productos={productos} />
     </main>
   );
 }
