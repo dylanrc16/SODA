@@ -10,6 +10,7 @@ type PropsCatalogo = {
   productos: Producto[];
   gruposOpciones: GrupoOpciones[];
   opciones: Opcion[];
+  alAgregar: (item: ItemCarrito) => void;
 };
 
 // Catálogo de la caja: pestañas de categorías arriba y tarjetas de productos abajo.
@@ -19,6 +20,7 @@ export default function Catalogo({
   productos,
   gruposOpciones,
   opciones,
+  alAgregar,
 }: PropsCatalogo) {
   // Estado: qué categoría está elegida. Empieza con la primera.
   const [categoriaElegida, setCategoriaElegida] = useState(categorias[0]?.id);
@@ -33,9 +35,9 @@ export default function Catalogo({
     gruposDelProducto.some((grupo) => grupo.id === opcion.grupo_id),
   );
 
-  // En la etapa 5 el ítem se guardará en el carrito; por ahora solo cierra.
+  // Le pasa el ítem a PantallaCaja (que lo guarda en el carrito) y cierra el detalle.
   function agregarAlCarrito(item: ItemCarrito) {
-    void item;
+    alAgregar(item);
     setProductoAbierto(null);
   }
 
@@ -69,7 +71,7 @@ export default function Catalogo({
       {productosVisibles.length === 0 ? (
         <p className="text-lg">No hay productos en esta categoría.</p>
       ) : (
-        <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+        <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3">
           {productosVisibles.map((producto) => (
             <li key={producto.id}>
               <button

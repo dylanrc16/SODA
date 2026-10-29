@@ -48,3 +48,28 @@ export type ItemCarrito = {
   cantidad: number; // entero, 1 o más
   opciones: OpcionElegida[];
 };
+
+// Valores fijos del pedido. Una "unión de texto" solo acepta estos valores:
+// TypeScript marca error si se escribe, por ejemplo, "efectvo".
+export type MetodoPago = "efectivo" | "tarjeta";
+export type TipoPedido = "comer_aqui" | "para_llevar" | "didi" | "uber_eats";
+
+// Texto que se muestra en pantalla para cada valor.
+export const etiquetasMetodoPago: Record<MetodoPago, string> = {
+  efectivo: "Efectivo",
+  tarjeta: "Tarjeta",
+};
+
+export const etiquetasTipoPedido: Record<TipoPedido, string> = {
+  comer_aqui: "Comer aquí",
+  para_llevar: "Para llevar",
+  didi: "Didi",
+  uber_eats: "Uber Eats",
+};
+
+// Datos que la caja pide antes de enviar. null = todavía no se eligió.
+export type DatosPedido = {
+  nombre_cliente: string;
+  metodo_pago: MetodoPago | null;
+  tipo_pedido: TipoPedido | null;
+};

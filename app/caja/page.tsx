@@ -1,9 +1,9 @@
 import Link from "next/link";
-import Catalogo from "./Catalogo";
+import PantallaCaja from "./PantallaCaja";
 import { categorias, gruposOpciones, opciones, productos } from "@/lib/datos-ejemplo";
 
 // Pantalla de la tablet de caja ("/caja").
-// Esta página corre en el servidor: toma los datos y se los pasa al catálogo.
+// Esta página corre en el servidor: toma los datos y se los pasa a la caja.
 // En la etapa 6 los datos vendrán de Supabase en vez de datos-ejemplo.
 export default function Caja() {
   return (
@@ -12,7 +12,7 @@ export default function Caja() {
         ← Inicio
       </Link>
       <h1 className="text-3xl font-bold">Caja</h1>
-      <Catalogo
+      <PantallaCaja
         categorias={categorias}
         productos={productos}
         gruposOpciones={gruposOpciones}
