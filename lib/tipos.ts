@@ -15,3 +15,19 @@ export type Producto = {
   ingredientes: string[];
   activo: boolean; // si es false, no se muestra en la caja
 };
+
+// Una opción o extra que el cliente eligió (por ejemplo, "Extra de ejemplo").
+export type OpcionElegida = {
+  nombre: string;
+  precio_extra: number; // colones, entero; 0 si no cuesta más
+};
+
+// Un producto dentro del carrito. Guarda copia del nombre y precio,
+// igual que pedido_items en el modelo de datos.
+export type ItemCarrito = {
+  producto_id: number;
+  nombre: string;
+  precio_unitario: number; // colones, entero
+  cantidad: number; // entero, 1 o más
+  opciones: OpcionElegida[];
+};
