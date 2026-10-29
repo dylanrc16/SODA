@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Catalogo from "./Catalogo";
-import { categorias, productos } from "@/lib/datos-ejemplo";
+import { categorias, gruposOpciones, opciones, productos } from "@/lib/datos-ejemplo";
 
 // Pantalla de la tablet de caja ("/caja").
 // Esta página corre en el servidor: toma los datos y se los pasa al catálogo.
@@ -12,7 +12,12 @@ export default function Caja() {
         ← Inicio
       </Link>
       <h1 className="text-3xl font-bold">Caja</h1>
-      <Catalogo categorias={categorias} productos={productos} />
+      <Catalogo
+        categorias={categorias}
+        productos={productos}
+        gruposOpciones={gruposOpciones}
+        opciones={opciones}
+      />
     </main>
   );
 }

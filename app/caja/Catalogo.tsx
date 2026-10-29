@@ -1,19 +1,43 @@
 "use client";
 
 import { useState } from "react";
-import type { Categoria, Producto } from "@/lib/tipos";
+import type { Categoria, GrupoOpciones, ItemCarrito, Opcion, Producto } from "@/lib/tipos";
 import { formatearColones } from "@/lib/formato";
+import DetalleProducto from "./DetalleProducto";
 
 type PropsCatalogo = {
   categorias: Categoria[];
   productos: Producto[];
+  gruposOpciones: GrupoOpciones[];
+  opciones: Opcion[];
 };
 
 // Catálogo de la caja: pestañas de categorías arriba y tarjetas de productos abajo.
 // Es un Client Component porque guarda estado (la categoría elegida) y responde a toques.
-export default function Catalogo({ categorias, productos }: PropsCatalogo) {
+export default function Catalogo({
+  categorias,
+  productos,
+  gruposOpciones,
+  opciones,
+}: PropsCatalogo) {
   // Estado: qué categoría está elegida. Empieza con la primera.
   const [categoriaElegida, setCategoriaElegida] = useState(categorias[0]?.id);
+  // Estado: qué producto tiene el detalle abierto (null = ninguno).
+  const [productoAbierto, setProductoAbierto] = useState<Producto | null>(null);
+
+  // Grupos y opciones solo del producto abierto.
+  const gruposDelProducto = gruposOpciones.filter(
+    (grupo) => grupo.producto_id === productoAbierto?.id,
+  );
+  const opcionesDelProducto = opciones.filter((opcion) =>
+    gruposDelProducto.some((grupo) => grupo.id === opcion.grupo_id),
+  );
+
+  // En la etapa 5 el ítem se guardará en el carrito; por ahora solo cierra.
+  function agregarAlCarrito(item: ItemCarrito) {
+    void item;
+    setProductoAbierto(null);
+  }
 
   // Filtro: solo los productos activos de la categoría elegida.
   const productosVisibles = productos.filter(
@@ -48,9 +72,9 @@ export default function Catalogo({ categorias, productos }: PropsCatalogo) {
         <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {productosVisibles.map((producto) => (
             <li key={producto.id}>
-              {/* En la etapa 4, tocar la tarjeta abrirá el detalle del producto. */}
               <button
                 type="button"
+                onClick={() => setProductoAbierto(producto)}
                 className="flex h-full min-h-36 w-full flex-col justify-between gap-3 rounded-xl border-2 border-neutral-200 p-4 text-left hover:border-amber-500 dark:border-neutral-700"
               >
                 <span className="flex flex-col gap-1">
@@ -66,6 +90,16 @@ export default function Catalogo({ categorias, productos }: PropsCatalogo) {
             </li>
           ))}
         </ul>
+      )}
+
+      {productoAbierto && (
+        <DetalleProducto
+          producto={productoAbierto}
+          grupos={gruposDelProducto}
+          opciones={opcionesDelProducto}
+          alCerrar={() => setProductoAbierto(null)}
+          alAgregar={agregarAlCarrito}
+        />
       )}
     </div>
   );

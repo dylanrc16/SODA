@@ -1,4 +1,4 @@
-import type { Categoria, Producto } from "./tipos";
+import type { Categoria, GrupoOpciones, Opcion, Producto } from "./tipos";
 
 // DATOS DE EJEMPLO: nombres, precios e ingredientes son inventados.
 // Se reemplazan por los reales cuando el dueño de la soda los dé,
@@ -84,4 +84,24 @@ export const productos: Producto[] = [
     ingredientes: [],
     activo: true,
   },
+];
+
+// Grupos de opciones de ejemplo. Los productos que no aparecen aquí
+// no tienen opciones.
+export const gruposOpciones: GrupoOpciones[] = [
+  // Producto de ejemplo A
+  { id: 1, producto_id: 1, nombre: "Grupo de ejemplo 1", obligatorio: true, max_selecciones: 1 },
+  { id: 2, producto_id: 1, nombre: "Extras de ejemplo", obligatorio: false, max_selecciones: 2 },
+  // Producto de ejemplo D
+  { id: 3, producto_id: 4, nombre: "Grupo de ejemplo 2", obligatorio: true, max_selecciones: 1 },
+];
+
+export const opciones: Opcion[] = [
+  { id: 1, grupo_id: 1, nombre: "Opción de ejemplo 1", precio_extra: 0 },
+  { id: 2, grupo_id: 1, nombre: "Opción de ejemplo 2", precio_extra: 0 },
+  { id: 3, grupo_id: 2, nombre: "Extra de ejemplo 1", precio_extra: 500 },
+  { id: 4, grupo_id: 2, nombre: "Extra de ejemplo 2", precio_extra: 300 },
+  { id: 5, grupo_id: 2, nombre: "Extra de ejemplo 3", precio_extra: 200 },
+  { id: 6, grupo_id: 3, nombre: "Opción de ejemplo 3", precio_extra: 0 },
+  { id: 7, grupo_id: 3, nombre: "Opción de ejemplo 4", precio_extra: 400 },
 ];

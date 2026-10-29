@@ -16,6 +16,23 @@ export type Producto = {
   activo: boolean; // si es false, no se muestra en la caja
 };
 
+// Un grupo de opciones de un producto (por ejemplo, "Extras de ejemplo").
+export type GrupoOpciones = {
+  id: number;
+  producto_id: number;
+  nombre: string;
+  obligatorio: boolean; // si es true, hay que elegir al menos una opción
+  max_selecciones: number; // cuántas opciones se pueden marcar a la vez
+};
+
+// Una opción dentro de un grupo.
+export type Opcion = {
+  id: number;
+  grupo_id: number;
+  nombre: string;
+  precio_extra: number; // colones, entero; 0 si no cuesta más
+};
+
 // Una opción o extra que el cliente eligió (por ejemplo, "Extra de ejemplo").
 export type OpcionElegida = {
   nombre: string;
